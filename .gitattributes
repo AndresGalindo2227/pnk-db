@@ -1,0 +1,5 @@
+# Store every text file with LF line endings in the repository,
+# whatever the operating system of the developer.
+* text=auto eol=lf
+*.sql text eol=lf
+*.md  text eol=lf
