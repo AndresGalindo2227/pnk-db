@@ -1,0 +1,19 @@
+# Database backups and exports must never be committed:
+# they contain customer data, sales and password hashes.
+*.bak
+*.dump
+backups/
+exports/
+*.sql.gz
+*.zip
+*.rar
+
+# Local environment files
+.env
+*.local.sql
+
+# Editor and OS files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
