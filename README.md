@@ -40,6 +40,7 @@ plus the booking module (fields, sectors, bookings, payments, players, refresh t
 | 003 | `003_create_business_settings.sql` | Single-row table with business data and booking rules | — |
 | 004 | `004_create_booking_module.sql` | `field_units`, `fields`, `field_unit_map`, `players`, `bookings`, `booking_slots`, `payments`, `refresh_tokens` | 001, 002 |
 | 005 | `005_seed_demo_data.sql` | Business row, sectors A-B-C, fields 5A/5B/5C ($70.000) and 9 ($210.000) | 003, 004 |
+| 006 | `006_create_booking_idempotency_keys.sql` | Idempotency keys of `POST /bookings`: a retried request returns the same booking | 004 |
 
 ### The anti double-booking rule
 
@@ -56,13 +57,13 @@ rejects overlapping bookings (SQLSTATE 23000 → API `409 SLOT_ALREADY_TAKEN`).
 
 1. Back up first: database `invfox` → *Export* → *Quick* → *SQL*. Keep the file **outside** this repo.
 2. Log in to phpMyAdmin as `root`, select `invfox`, open the *SQL* tab.
-3. Run `001`, then `checks/check_before_002.sql` (all queries must return 0 rows), then `002` … `005`,
+3. Run `001`, then `checks/check_before_002.sql` (all queries must return 0 rows), then `002` … `006`,
    one file at a time. Every statement must finish without errors.
 
 **New installation** (empty database):
 
 1. Create an empty database with collation `utf8mb4_unicode_ci`.
-2. Select it and run `000`, `001`, `check_before_002`, `002`, `003`, `004`, `005` in order.
+2. Select it and run `000`, `001`, `check_before_002`, `002`, `003`, `004`, `005`, `006` in order.
 3. Create the first InvFox administrator (the repository has no users on purpose):
 
    ```bash
